@@ -19,17 +19,19 @@ const handleLogin = async (e) => {
       `${import.meta.env.VITE_API_URL || ''}/auth/login`,
       params,
       {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
       }
     );
+    console.log("Login response:", response.data);  // <-- Check this in DevTools
+
     localStorage.setItem("accessToken", response.data.access_token);
     navigate("/");
   } catch (err) {
     setError("Invalid username or password");
   }
 };
+
+
 
 
   return (

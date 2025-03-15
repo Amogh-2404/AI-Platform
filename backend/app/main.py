@@ -5,7 +5,7 @@ from app.core.logging_config import setup_logging
 from app.api import endpoints, auth
 from app.middlewares.logging import RequestLoggingMiddleware
 from app.middlewares.rate_limiter import RateLimitMiddleware
-
+from fastapi.middleware.cors import CORSMiddleware
 # Setup logging using our configuration
 setup_logging()
 
@@ -15,6 +15,19 @@ app = FastAPI(
     description="Production Grade AI-Enhanced Service Platform",
     docs_url="/docs",
     redoc_url="/redoc"
+)
+
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Add middlewares for request logging and rate limiting
